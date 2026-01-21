@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { AuthProvider } from './context/AuthContext';
-import { Login } from './pages/Login';
-import { Register } from './pages/Register';
-import { Dashboard } from './pages/Dashboard';
+import { Login } from './views/Login';
+import { Register } from './views/Register';
+import { Dashboard } from './views/Dashboard';
+import { Profile } from './views/Profile';
 import useAuthStore from './store/authStore';
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
 
   const renderPage = () => {
     // Protected route - redirect to login if not authenticated
-    if (currentPage === 'dashboard' && !isAuthenticated) {
+    const protectedPages = ['dashboard', 'profile'];
+    if (protectedPages.includes(currentPage) && !isAuthenticated) {
       setCurrentPage('login');
       return <Login onNavigate={setCurrentPage} />;
     }
@@ -27,12 +29,15 @@ function App() {
       case 'register':
         return <Register onNavigate={setCurrentPage} />;
       case 'dashboard':
-        return <Dashboard onNavigate={setCurrentPage} />;
+        return <Dashboard onNavigate={setCurrentPage} currentPage={currentPage} />;
+      case 'profile':
+        return <Profile onNavigate={setCurrentPage} currentPage={currentPage} />;
       case 'login':
       default:
         return <Login onNavigate={setCurrentPage} />;
     }
   };
+
 
   return <div className="App">{renderPage()}</div>;
 }
