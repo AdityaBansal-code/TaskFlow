@@ -4,12 +4,12 @@ import { Loader2 } from 'lucide-react';
 
 const Button = React.forwardRef(({ className, variant = "primary", size = "default", isLoading, children, ...props }, ref) => {
   const variants = {
-    primary: "bg-gradient-to-r from-primary-600 to-primary-700 text-white hover:from-primary-700 hover:to-primary-800 shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40",
-    secondary: "bg-white text-slate-900 border-2 border-slate-200 hover:bg-slate-50 hover:border-slate-300 shadow-sm hover:shadow-md",
+    primary: "bg-primary-600 text-white hover:bg-primary-700 shadow-sm hover:shadow-md",
+    secondary: "bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 shadow-sm hover:shadow-md",
     ghost: "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
-    danger: "bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 shadow-lg shadow-red-500/30",
-    success: "bg-gradient-to-r from-emerald-500 to-emerald-600 text-white hover:from-emerald-600 hover:to-emerald-700 shadow-lg shadow-emerald-500/30",
-    outline: "border-2 border-primary-600 text-primary-600 hover:bg-primary-50",
+    danger: "bg-red-600 text-white hover:bg-red-700 shadow-sm hover:shadow-md",
+    success: "bg-green-600 text-white hover:bg-green-700 shadow-sm hover:shadow-md",
+    outline: "border border-primary-600 text-primary-600 hover:bg-primary-50",
   };
 
   const sizes = {

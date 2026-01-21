@@ -10,7 +10,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import axiosInstance from '../utils/axiosInstance';
 import { AlertCircle } from 'lucide-react';
 import useAuthStore from '../store/authStore';
-import { motion } from 'framer-motion';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -49,31 +48,22 @@ export const Register = ({ onNavigate }) => {
 
   return (
     <AuthLayout>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-      >
-        <Card className="shadow-2xl border-none overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700" />
-          <CardHeader className="space-y-1 pt-8">
-            <CardTitle className="text-2xl">Create an account</CardTitle>
-            <CardDescription className="text-base">
-              Enter your details to get started with TaskFlow
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="pb-8">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-              {errorHeader && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="p-4 rounded-xl bg-red-50 border-2 border-red-100 flex items-center gap-3 text-red-700 text-sm font-medium"
-                >
-                  <AlertCircle className="h-5 w-5 shrink-0" />
-                  {errorHeader}
-                </motion.div>
-              )}
+      <Card className="shadow-sm border border-slate-200">
+        <div className="absolute top-0 left-0 w-full h-1 bg-primary-600" />
+        <CardHeader className="space-y-1 pt-6 sm:pt-8 p-4 sm:p-6">
+          <CardTitle className="text-xl sm:text-2xl text-balance">Create an account</CardTitle>
+          <CardDescription className="text-sm sm:text-base text-pretty">
+            Enter your details to get started with TaskFlow
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="pb-6 sm:pb-8 p-4 sm:p-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            {errorHeader && (
+              <div className="p-4 rounded-xl bg-red-50 border border-red-100 flex items-center gap-3 text-red-700 text-sm font-medium">
+                <AlertCircle className="h-5 w-5 shrink-0" />
+                {errorHeader}
+              </div>
+            )}
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
                 <Input
@@ -118,7 +108,7 @@ export const Register = ({ onNavigate }) => {
               </Button>
             </form>
           </CardContent>
-          <CardFooter className="flex justify-center border-t border-slate-100 p-6 bg-slate-50">
+          <CardFooter className="flex justify-center border-t border-slate-100 p-4 sm:p-6 bg-slate-50">
             <p className="text-sm text-slate-600">
               Already have an account?{' '}
               <button
@@ -130,7 +120,6 @@ export const Register = ({ onNavigate }) => {
             </p>
           </CardFooter>
         </Card>
-      </motion.div>
     </AuthLayout>
   );
 };

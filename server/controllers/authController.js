@@ -2,9 +2,6 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-// @desc    Register new user
-// @route   POST /api/auth/register
-// @access  Public
 exports.register = async (req, res, next) => {
     const { name, email, password } = req.body;
 
@@ -55,9 +52,6 @@ exports.register = async (req, res, next) => {
     }
 };
 
-// @desc    Login user
-// @route   POST /api/auth/login
-// @access  Public
 exports.login = async (req, res, next) => {
     const { email, password } = req.body;
 
@@ -101,6 +95,55 @@ exports.login = async (req, res, next) => {
         res.status(200).json({
             success: true,
             token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email
+            }
+        });
+
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.updateProfile = async (req, res, next) => {
+    const { name, email } = req.body;
+
+    try {
+        // Validation
+        if (!name || !email) {
+            return res.status(400).json({
+                success: false,
+                error: 'Please provide name and email'
+            });
+        }
+
+        // Check if email is already taken by another user
+        const existingUser = await User.findOne({ email, _id: { $ne: req.user.id } });
+        if (existingUser) {
+            return res.status(400).json({
+                success: false,
+                error: 'Email already in use by another account'
+            });
+        }
+
+        // Update user profile
+        const user = await User.findByIdAndUpdate(
+            req.user.id,
+            { name, email },
+            { new: true, runValidators: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: 'User not found'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
             user: {
                 id: user._id,
                 name: user.name,

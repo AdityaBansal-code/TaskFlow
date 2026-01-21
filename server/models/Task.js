@@ -4,7 +4,7 @@ const TaskSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: [true, 'Task must belong to a user'] // Every task MUST have a user
+        required: [true, 'Task must belong to a user']
     },
     title: {
         type: String,
@@ -26,7 +26,7 @@ const TaskSchema = new mongoose.Schema({
         default: 'pending'
     }
 }, {
-    timestamps: true // Automatically adds createdAt and updatedAt
+    timestamps: true
 });
 
 module.exports = mongoose.model('Task', TaskSchema);

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { AuthProvider } from './context/AuthContext';
 import { Login } from './views/Login';
 import { Register } from './views/Register';
 import { Dashboard } from './views/Dashboard';
