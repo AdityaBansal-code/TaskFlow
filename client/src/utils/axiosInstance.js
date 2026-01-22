@@ -1,8 +1,16 @@
 import axios from 'axios';
 import useAuthStore from '../store/authStore';
 
+const getBaseUrl = () => {
+    let url = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    if (!url.endsWith('/api')) {
+        url += '/api';
+    }
+    return url;
+};
+
 const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+    baseURL: getBaseUrl(),
     headers: {
         'Content-Type': 'application/json'
     }
