@@ -10,13 +10,8 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-    origin: process.env.FRONTEND_URL === '*' 
-        ? function (origin, callback) {
-            // Allow requests with no origin (like mobile apps or curl requests)
-            callback(null, true);
-          }
-        : process.env.FRONTEND_URL,
-    credentials: true,
+    origin: process.env.FRONTEND_URL === '*' ? '*' : process.env.FRONTEND_URL,
+    credentials: process.env.FRONTEND_URL !== '*',
     optionsSuccessStatus: 200
 };
 
